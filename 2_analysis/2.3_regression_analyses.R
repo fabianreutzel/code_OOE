@@ -180,7 +180,7 @@ ggplot(returns_educ,
         legend.title = element_blank(),
         legend.text = element_text(size = 11),
         panel.background = element_blank())
-ggsave(paste0(path_figures, "/main/returns_educ.png"), width = 8, height = 6)
+ggsave(paste0(path_figures, "/annex/returns_educ.png"), width = 8, height = 6)
 
 #########################################################################################/
 #2. Circumstance Return Differentials ####

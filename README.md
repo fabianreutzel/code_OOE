@@ -17,7 +17,7 @@ After setting the root directory, the replicator first has to run the main clean
 
 ## Data Availability
 
-The used household and labor force surveys are subject to data access approval, such that the main data of the manuscript cannot be made publicly available. Get in contact with [Maurizio Bussolo](mailto:mbussolo@worldbank.org) for data sharing requests.
+The used household and labor force surveys are subject to data access approval, such that the main data of the paper cannot be made publicly available. Get in contact with [Maurizio Bussolo](mailto:mbussolo@worldbank.org) for data sharing requests.
 
 ### Data Sources
 
@@ -77,23 +77,17 @@ In-text numbers can be reproduced with the public material provided.
 |--------------|-----------------|--------|
 | Table 1 – Survey Overview | survey_overview.tex | 2.1_IOp_cross-section_intro.R (line 82) |
 | Table 2 – Snapshot: Inequality & IOp across Outcome Dimensions | educ_cons_labor_cs_last.tex | 2.1_IOp_cross-section_intro.R (line 175) |
-| Figure 1 – Total Inequality vs IOp across the World | gini_iop_world.png | 2.1_IOp_cross-section_intro.R (line 282) |
-| Figure 2 – Evolution Total Inequality and Relative IOp: Education & Consumption | educ_cons.png | 2.7_joint_graphs.R (line 79) |
-| Figure 3 – Primary Education: Population Share and IOp | share_iop_prim.png | 2.2_IOp_cohort.R (line 56) |
-| Figure 4 – Changes in IOp across Outcome Dimensions | change_educ_lfp_cons.png | 2.7_joint_graphs.R (line 126) |
-| Figure 5 – Evolution IOp of Labor Market Outcomes | iop_lfp_paidwage_wage.png | 2.2_IOp_cohort.R (line 264) |
-| Figure 6 – Evolution of Education Stocks across Cohorts | shares_educ_cat.png | 2.2_IOp_cohort.R (line 119) |
-| Figure 7 – IOp in Education: Years vs. Primary vs. Upper Secondary | iop_uppsec_prim_educ.png | 2.2_IOp_cohort.R (line 82) |
-| Figure 8 – Labor Market Returns to Education | returns_educ.png | 2.3_regression_analyses.R (line 182) |
-| Figure 9 – Returns to Education by Degree: Primary vs. Upper Secondary | lm_lfp_paidwage_educ_cat.png | 2.3_regression_analyses.R (line 351) |
-| Figure 10 – Gender Differential in Educational Returns: Primary vs. Upper Secondary | lm_lfp_paidwage_female.png | 2.3_regression_analyses.R (line 377) |
-| Figure 11 – Labor Market IOp by Education Level | iop_lfp_paidwage_educ_cat_sample.png | 2.2_IOp_cohort.R (line 300) |
-| Figure 12 – Decomposing IOp in Years of Education by Circumstances | circ_imp_educ.png | 2.5_circ_importance.R (line 40) |
-| Figure 13 – Decomposing LFP IOp by Circumstances | circ_imp_lfp.png | 2.5_circ_importance.R (line 112) |
-| Figure 14 – Profiles 1950s – Years of Education | prof_educ.png | 2.4_opportunity_profiles.R (line 201) |
-| Figure 15 – Changes in Opportunity Profiles – Years of Education | change_5090s_educ.png | 2.4_opportunity_profiles.R (line 221) |
-| Figure 16 – Changes in Opportunity: Secondary/Higher Education vs. LFP | change_uppsec_lfp.png | 2.7_joint_graphs.R (line 202) |
-| Figure 17 – Growth Incidence (OGIC) – Consumption | growth_5080s_cons.png | 2.4_opportunity_profiles.R (line 237) |
+| Figure 1 – Evolution Total Inequality and Relative IOp: Education & Consumption | educ_cons.png | 2.7_joint_graphs.R (line 66) |
+| Figure 2 – Primary Education: Population Share and IOp | share_iop_prim.png | 2.2_IOp_cohort.R (line 56) |
+| Figure 3 – Changes in IOp across Outcome Dimensions | change_educ_lfp_cons.png | 2.7_joint_graphs.R (line 109) |
+| Figure 4 – Evolution IOp of Labor Market Outcomes | iop_lfp_paidwage_wage.png | 2.2_IOp_cohort.R (line 264) |
+| Figure 5 – Evolution of Education Stocks across Cohorts | shares_educ_cat.png | 2.2_IOp_cohort.R (line 119) |
+| Figure 6 – IOp in Education: Years vs. Primary vs. Upper Secondary | iop_uppsec_prim_educ.png | 2.2_IOp_cohort.R (line 82) |
+| Figure 7 – Returns to Education by Degree: Primary vs. Upper Secondary | lm_lfp_paidwage_educ_cat.png | 2.3_regression_analyses.R (line 354) |
+| Figure 8 – Gender Differential in Educational Returns: Primary vs. Upper Secondary | lm_lfp_paidwage_female.png | 2.3_regression_analyses.R (line 381) |
+| Figure 9 – Labor Market IOp by Education Level | iop_lfp_paidwage_educ_cat_sample.png | 2.2_IOp_cohort.R (line 300) |
+| Figure 10 – Decomposing IOp in Years of Education by Circumstances | circ_imp_educ.png | 2.5_circ_importance.R (line 40) |
+| Figure 11 – Decomposing LFP IOp by Circumstances | circ_imp_lfp.png | 2.5_circ_importance.R (line 112) |
 | Appendix | | | |
 | Table A1 – Survey Overview by Outcome | survey_overview_outcome.tex | 2.1_IOp_cross-section_intro.R (line 123) |
 | Table A2 – Sample Size by Birth Cohort | sample_size_cohort.tex | 2.6_joint_tables.R (line 68) |
@@ -102,34 +96,39 @@ In-text numbers can be reproduced with the public material provided.
 | Table A5 – Geo-spatial Migration | migration.tex | robustness_checks/robustness_migration.R (line 19) |
 | Table A6 – Circumstances – Demographic Group | demo.tex | 2.6_joint_tables.R |
 | Table A7 – Population Summary Opportunity Profiles | p_educ.tex | 2.4_opportunity_profiles.R (line 355) |
-| Table A8 – Years of Education Coresident Analysis - Distortion vs. Proxy | distortion_educ.tex | robustness_checks/robustness_coresident.R (line 112) |
-| Table A9 – Robustness Consumption: Survey Methodology India | india_cons.tex | robustness_checks/robustness_consumption.R (line 198) |
-| Table A10 – Cohort-Age Group Table: Bangladesh | cons_cohort_age_Bangladesh.tex | robustness_checks/robustness_consumption.R (line 36) |
-| Table A11 – Labor Market Returns to Education: LFP (years) | reg_lfp_educ_years.tex | 2.3_regression_analyses.R (line 570) |
-| Table A12 – Labor Market Returns to Education: Wage-Employment (years) | reg_paidwage_educ_years.tex | 2.3_regression_analyses.R (line 570) |
-| Table A13 – Labor Market Returns to Education: Wages (years) | reg_wage_educ_years.tex | 2.3_regression_analyses.R (line 570) |
-| Table A14 – Labor Market Returns & Differentials: LFP (edu categories) | reg_lfp_educ_cat.tex | 2.3_regression_analyses.R (line 570) |
-| Table A15 – Labor Market Returns to Education: Wage-Employment (edu categories) | reg_paidwage_educ_cat.tex | 2.3_regression_analyses.R (line 570) |
-| Figure A1 – Population CDF – Years of Education | cdf_educ_female.png | 2.4_opportunity_profiles.R (line 291) |
+| Table A8 – Labor Market Returns to Education: LFP | reg_lfp_educ_years.tex | 2.3_regression_analyses.R (line 570) |
+| Table A9 – Labor Market Returns to Education: Wage Employment | reg_paidwage_educ_years.tex | 2.3_regression_analyses.R (line 570) |
+| Table A10 – Labor Market Returns to Education: Wages | reg_wage_educ_years.tex | 2.3_regression_analyses.R (line 570) |
+| Table A11 – Years of Education Coresident Analysis - Distortion vs. Proxy | distortion_educ.tex | robustness_checks/robustness_coresident.R (line 112) |
+| Table A12 – Cohort-Age Group Table: Bangladesh | cons_cohort_age_Bangladesh.tex | robustness_checks/robustness_consumption.R (line 36) |
+| Table A13 – Survey-specific Labor Market Outcome Estimates for India | robustness_india.tex | robustness_checks/robustness_india.R (line 96) |
+| Table A14 – Labor Market Returns & Differentials: LFP | reg_lfp_educ_cat.tex | 2.3_regression_analyses.R (line 570) |
+| Table A15 – Labor Market Returns & Differentials: Wage-Employment | reg_paidwage_educ_cat.tex | 2.3_regression_analyses.R (line 570) |
+| Figure A1 – Population CDF - Years of Education | cdf_educ_female.png | 2.4_opportunity_profiles.R (line 291) |
 | Figure A2 – Assortative Mating across Birth Cohorts | corr_educ.png | robustness_checks/robustness_education.R (line 50) |
-| Figure A3 – Sampling Frame: Coresident Share by Gender | coresident_share_gender.png | robustness_checks/robustness_coresident.R (line 145) |
-| Figure A4 – Circumstance Importance: Years of Education - Coresident Sample | circ_imp_educ_coresident.png | robustness_checks/robustness_coresident.R (line 178) |
-| Figure A5 – Total Inequality Comparison PIP – Consumption | gini_pip.png | 2.1_IOp_cross-section_intro.R (line 336) |
-| Figure A6 – Profiles 1950s – Consumption | prof_cons.png | 2.4_opportunity_profiles.R (line 203) |
-| Figure A7 – Population CDFs – Consumption: Changes in Urbanity | cdf_cons_urban.png | 2.4_opportunity_profiles.R (line 309) |
-| Figure A8 – Growth in Population Shares – Consumption: Changes in Urbanity | n_growth_cons_urban.png | 2.4_opportunity_profiles.R (line 326) |
-| Figure A9 – Decomposing Consumption IOp by Circumstances | circ_imp_cons.png | 2.5_circ_importance.R (line 73) |
-| Figure A10 – Evolution of IOp: Parametric vs. Forest Estimation | comp_para_forest.png | robustness_checks/robustness_forest.R (line 77) |
-| Figure A11 – LFP Estimates across different Data Sources (age 15–64) | lfp_cs_overview.png | robustness_checks/robustness_labor.R (line 88) |
-| Figure A12 – IOp in LFP & Wage-Employment by Data Source & Sample Definition | iop_lfp_paidwage_paidwage_all_hhs_lfs.png | 2.2_IOp_cohort.R (line 227) |
-| Figure A13 – Evolution Composition prime working age population (35–54 years) | lfp_paidwage_shares.png | 2.3_regression_analyses.R (line 624) |
-| Figure A14 – Urban Premia in Educational Returns: Primary vs. Upper Secondary | lm_lfp_paidwage_urban.png | 2.3_regression_analyses.R (line 403) |
-| Figure A15 – Profiles 1950s – LFP | prof_lfp.png | 2.4_opportunity_profiles.R (line 203) |
-| Figure A16 – Profiles 1950s – Wage-Employment | prof_paidwage.png | 2.4_opportunity_profiles.R (line 203) |
-| Figure A17 – Profiles LFP across Surveys (2010s) | prof_lfp_cs_last.png | robustness_checks/robustness_labor.R (line 178) |
-| Figure A18 – Profiles Wage-Employment across Surveys (2010s) | prof_paidwage_cs_last.png | robustness_checks/robustness_labor.R (line 195) |
-| Figure A19 – Decomposing Wage-Employment IOp by Circumstances | circ_imp_paidwage.png | 2.5_circ_importance.R (line 133) |
-| Figure A20 – Decomposing Wage IOp by Circumstances | circ_imp_wage.png | 2.5_circ_importance.R (line 153) |
+| Figure A3 – Labor Market Returns to Education | returns_educ.png | 2.3_regression_analyses.R (line 183) |
+| Figure A4 – Profiles 1950s - Years of Education | prof_educ.png | 2.4_opportunity_profiles.R (line 201) |
+| Figure A5 – Changes in Opportunity Profiles - Years of Education | change_5090s_educ.png | 2.4_opportunity_profiles.R (line 221) |
+| Figure A6 – Changes in Opportunity: Secondary/Higher Education vs. LFP | change_uppsec_lfp.png | 2.7_joint_graphs.R (line 185) |
+| Figure A7 – Growth Incidence (OGIC) - Consumption | growth_5080s_cons.png | 2.4_opportunity_profiles.R (line 237) |
+| Figure A8 – Sampling Frame: Coresident Share by Gender | coresident_share_gender.png | robustness_checks/robustness_coresident.R (line 145) |
+| Figure A9 – Circumstance Importance: Years of Education - Coresident Sample | circ_imp_educ_coresident.png | robustness_checks/robustness_coresident.R (line 178) |
+| Figure A10 – Total Inequality Comparison PIP - Consumption | gini_pip.png | 2.1_IOp_cross-section_intro.R (line 322) |
+| Figure A11 – Profiles 1950s - Consumption | prof_cons.png | 2.4_opportunity_profiles.R (line 203) |
+| Figure A12 – Population CDFs - Consumption: Changes in Urbanity | cdf_cons_urban.png | 2.4_opportunity_profiles.R (line 309) |
+| Figure A13 – Growth in Population Shares - Consumption: Changes in Urbanity | n_growth_cons_urban.png | 2.4_opportunity_profiles.R (line 326) |
+| Figure A14 – Decomposing Consumption IOp by Circumstances | circ_imp_cons.png | 2.5_circ_importance.R (line 73) |
+| Figure A15 – Evolution of IOp: Parametric vs. Forest Estimation | comp_para_forest.png | robustness_checks/robustness_forest.R (line 74) |
+| Figure A16 – LFP Estimates across different Data Sources (age 15-64) | lfp_cs_overview.png | robustness_checks/robustness_labor.R (line 88) |
+| Figure A17 – IOp in LFP & Wage-Employment by Data Source & Sample Definition | iop_lfp_paidwage_paidwage_all_hhs_lfs.png | 2.2_IOp_cohort.R (line 227) |
+| Figure A18 – Evolution Composition prime working age population (35-54 years) | lfp_paidwage_shares.png | 2.3_regression_analyses.R (line 629) |
+| Figure A19 – Urban Premia in Educational Returns: Primary vs. Upper Secondary | lm_lfp_paidwage_urban.png | 2.3_regression_analyses.R (line 408) |
+| Figure A20 – Profiles 1950s - LFP | prof_lfp.png | 2.4_opportunity_profiles.R (line 203) |
+| Figure A21 – Profiles 1950s - Wage-Employment | prof_paidwage.png | 2.4_opportunity_profiles.R (line 203) |
+| Figure A22 – Profiles LFP across Surveys (2010s) | prof_lfp_cs_last.png | robustness_checks/robustness_labor.R (line 178) |
+| Figure A23 – Profiles Wage-Employment across Surveys (2010s) | prof_paidwage_cs_last.png | robustness_checks/robustness_labor.R (line 195) |
+| Figure A24 – Decomposing Wage-Employment IOp by Circumstances | circ_imp_paidwage.png | 2.5_circ_importance.R (line 133) |
+| Figure A25 – Decomposing Wage IOp by Circumstances | circ_imp_wage.png | 2.5_circ_importance.R (line 153) |
 
 ## Requirements
 
@@ -192,12 +191,12 @@ All results can be created using the `2_main_analysis.R` file. To limit running 
 
 - `2.0_data_import.R`: imports and prepares the relevant data for analysis;
 - `2.1_IOp_cross-section_intro.R`: creates the cross-sectional results of sections 1 and 4.1;
-- `2.2_IOp_cohort.R`: creates the cohort-based pseudo panel results of sections 4.2 and 5;
-- `2.3_regression_analyses.R`: performs the regression analysis for educational return convexity and differential returns by circumstance;
-- `2.4_opportunity_profiles.R`: estimates opportunity profiles and produces related graphs,
-- `2.5_circ_importance.R`: estimates circumstance importance and produces related graphs,
+- `2.2_IOp_cohort.R`: creates the cohort-based pseudo panel results of sections 4 and 5;
+- `2.3_regression_analyses.R`: performs the regression analysis for differential returns by circumstances (Section 5.3) and educational return convexity (Annex A.2);
+- `2.4_opportunity_profiles.R`: estimates opportunity profiles and produces related graphs (Annex A.3),
+- `2.5_circ_importance.R`: estimates circumstance importance and produces related graphs (Section 5.3),
 - `2.6_joint_tables.R`: produces the survey overview, sample size and result tables (Tables 1, A1, A2, A3);
-- `2.7_joint_graphs.R`: produces main graphs across outcome dimensions (Figures 2, 4, 16).
+- `2.7_joint_graphs.R`: produces main graphs across outcome dimensions (Figures 1, 3, A6).
 
 Those files make use of the following *functions*:
 - `iop_ex-ante`: estimates IOp for different outcomes, estimation methods and estimation types;
@@ -207,12 +206,13 @@ Those files make use of the following *functions*:
 Note, the functions are build to perform a bootstrap analysis to report 95\% confidence intervals (`_u`= upper CI, `_l` = lower CI) besides the point estimate (`_p`). Those are omitted from the manuscript for brevity as CIs are limited in size for the main results. 
 
 Additionally, *robustness checks* are performed for the different outcomes:
-- `robustness_consumption.R`: checks results robustness for age-profiles (i.e., cohort age tables, Table A10) and India's different survey methodologies (Table A9);
-- `robustness_coresident.R`: creates the coresident-based results of the appendix (section A.2);
+- `robustness_consumption.R`: checks results robustness for age-profiles (i.e., cohort age tables, Table A12);
+- `robustness_coresident.R`: creates the coresident-based results of the appendix (Section A.4);
 - `robustness_education.R`: estimates assortative mating (Figure A2);
-- `robustness_labor.R`: produces the comparison of LFP with ILO estimates (Figure A11), estimates the cross-sectional opportunity profiles for comparing LFS \& HHS (Figures A17 and A18);
+- `robustness_labor.R`: produces the comparison of LFP with ILO estimates (Figure A16), estimates the cross-sectional opportunity profiles for comparing LFS \& HHS (Figures A22 and A23);
+- `robustness_india.R`: produces cohort-based estimates India by surveys (EUS 1983-2011, PFLS 2017-2022; Table A13);
 - `robustness_migration.R`: calculates the migration rates (Table A5);
-- `robustness_forest.R`: estimates the main results using the conditional inference forests and produces the comparison with parametric results (Figure A9); to run it set `robustness_forest = TRUE` (`2_main_analysis.R`, line 72).
+- `robustness_forest.R`: estimates the main results using the conditional inference forests and produces the comparison with parametric results (Figure A15); to run it set `robustness_forest = TRUE` (`2_main_analysis.R`, line 72).
 
 
 ## Folder Structure

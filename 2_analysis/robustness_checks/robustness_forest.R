@@ -31,7 +31,6 @@ if(restimation == TRUE & outcome_type == "cohort"){
 load(paste0(path_results, "/educ_cs4.RData"))
 load(paste0(path_results, "/lfp_cs4.RData"))
 load(paste0(path_results, "/cons_cs3.RData"))
-load(paste0(path_results, "/rescale_india.RData"))
 
 para_forest <- rbind(
   educ_cs4 %>% dplyr::select(country, year, rel_iop_u, rel_iop_l, rel_iop_p) %>%
@@ -39,15 +38,8 @@ para_forest <- rbind(
   educ_cs4_forest %>% dplyr::select(country, year, rel_iop_u, rel_iop_l, rel_iop_p) %>%
     mutate(estimation = 2, outcome = 1),
   cons_cs3 %>% dplyr::select(country, year, rel_iop_u, rel_iop_l, rel_iop_p) %>%
-    mutate(rel_iop_p = ifelse(country == "India" & year >= 5, rel_iop_p*rescale_india$rescale_rel_iop_last, rel_iop_p),
-          rel_iop_l = ifelse(country == "India" & year >= 5, rel_iop_l*rescale_india$rescale_rel_iop_last, rel_iop_l),
-          rel_iop_u = ifelse(country == "India" & year >= 5, rel_iop_u*rescale_india$rescale_rel_iop_last, rel_iop_u)) %>%
     mutate(estimation = 1, outcome = 2),
   cons_cs3_forest %>% dplyr::select(country, year, rel_iop_u, rel_iop_l, rel_iop_p) %>%
-    mutate(rel_iop_p = ifelse(country == "India" & year >= 5, rel_iop_p*rescale_india$rescale_rel_iop_last, rel_iop_p),
-          rel_iop_l = ifelse(country == "India" & year >= 5, rel_iop_l*rescale_india$rescale_rel_iop_last, rel_iop_l),
-          rel_iop_u = ifelse(country == "India" & year >= 5, rel_iop_u*rescale_india$rescale_rel_iop_last, rel_iop_u)) %>%
-    filter(country != "Nepal") %>% 
     mutate(rel_iop_u = NA, rel_iop_l = NA, estimation = 2, outcome = 2),
   lfp_cs4 %>%  select(country, year, abs_iop_u, abs_iop_l, abs_iop_p) %>%
         rename_with(~paste0("rel", substr(., 4, nchar(.))), starts_with("abs")) %>% mutate(estimation = 1, outcome = 3),

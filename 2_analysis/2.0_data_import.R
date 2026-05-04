@@ -59,7 +59,6 @@ if(outcome_dim == "all"|outcome_dim == "labor"){
   data_lfs_cs <- data_lfs %>%
     filter(age >= 15 & age <= 64) %>% #age restriction labor force
     filter(age >= 35 & age <= 54) %>% #age restriction comparable cohort analysis
-    mutate_at(vars(female, urban, demo, geo_level_1), ~factor(.)) %>%
     mutate(lfp = ifelse(is.na(lstatus), NA, ifelse(lstatus != 3, 1, 0)),
            paidwage_all = ifelse(is.na(lfp), NA, ifelse(is.na(empstat), 0, ifelse(empstat == 1, 1, 0))),
            paidwage = ifelse(is.na(lfp), NA, ifelse(lfp == 1, ifelse(is.na(empstat), NA, ifelse(empstat == 1, 1, 0)), NA)),
@@ -132,11 +131,12 @@ if(outcome_type != "cs"){
 
   if(outcome_dim == "cons" | outcome_dim == "all"){
     data_cons <- data_cons_cs %>%
+      filter(!(country == "India" & year == 2022)) %>% #non-comparable sampling to 2011 (Reviewer request)
       filter(!(country == "Afghanistan")) %>% #NRVA not comparable across waves
       filter(!(country == "Bangladesh" & year == 2022)) %>% #non-comparable welfare aggregate (PIP)
       filter(!(country == "Bhutan" & year == 2022)) %>% #non-comparable welfare aggregate (PIP)
       filter(!(country == "Nepal")) %>% #only 3 cohorts covered and issue of weights
-      mutate(hh_cons_wb = ifelse(country != "India", hh_cons_wb, ifelse(cohort_5>= 5, hh_cons_wb_new, hh_cons_wb_old))) %>%  #use new measure from 1970-74 onwards
+      mutate(hh_cons_wb = ifelse(country != "India", hh_cons_wb, hh_cons_wb_old)) %>%  #use old measure for all cohorts (Reviewer request)
       filter(age >= 35 & age <= 54)
 
   #check & exclude cohort that are not fully covered (<4of5 years)
@@ -151,7 +151,6 @@ if(outcome_type != "cs"){
         .groups = "drop"
       ) %>%
       mutate(sample_hh_cons_cohort = ifelse((max_y - min_y >= 3) & n_years>1, 1, 0)) %>%
-      mutate(sample_hh_cons_cohort = ifelse(country == "India"&cohort_5 == 7, 1, sample_hh_cons_cohort)) %>% #keep despite no pseudo panel 
       select(country, cohort_5, sample_hh_cons_cohort)
 
     data_cons <- data_cons %>% left_join(hh_cons_cohort_full, by = c("country", "cohort_5")) %>%
@@ -209,23 +208,20 @@ if(outcome_type != "cs"){
       mutate(year_birth = year-age) %>%
       group_by(country, cohort_5) %>%
       summarise(
-        max_y = max(year_birth, na.rm = TRUE), 
-        min_y = min(year_birth, na.rm = TRUE), 
+        max_y = max(year_birth, na.rm = TRUE),
+        min_y = min(year_birth, na.rm = TRUE),
         n_obs = n(),
-        n_years = length(unique(year)), #pseudo panel restriction satisfied 
+        n_years = length(unique(year)), #pseudo panel restriction satisfied
         .groups = "drop"
       ) %>%
-      mutate(sample_lm = ifelse((max_y -min_y >= 3)&n_years>1, 1, 0)) %>%
-      mutate(sample_lfs = ifelse((max_y - min_y>= 3)&n_years>1, 1, 0)) %>%
+      mutate(sample_lfs = ifelse((max_y - min_y >= 3) & n_years > 1, 1, 0)) %>%
       filter(!(cohort_5 == 1&(country == "Nepal"))) %>% #excl. small sample wrt other birth cohorts (BGD 1950-54 excl. due to missing pseudo)
       select(country, cohort_5, sample_lfs)
     data_lfs_full <- data_lfs_full %>% left_join(lfs_full, by = c("country", "cohort_5")) %>%
-      filter(sample_lfs == 1) 
-    #sample restriction for graphs with non-restricted data
-    lfs_full <- lfs_full %>% dplyr::rename(year = cohort_5)
+      filter(sample_lfs == 1)
     #check true pseudo panel
-    lm_test_pseudo <- data_lfs_full %>% 
-      group_by(country, cohort_5) %>% 
+    lm_test_pseudo <- data_lfs_full %>%
+      group_by(country, cohort_5) %>%
       summarise(n_years = length(unique(year)), .groups = "drop")
     
     ##combine both datasets

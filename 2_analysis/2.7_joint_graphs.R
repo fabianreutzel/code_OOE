@@ -11,7 +11,6 @@ load(paste0(path_results, "/prim_cs4.RData"))
 load(paste0(path_results, "/uppsec_cs4.RData"))
 load(paste0(path_results, "/lfp_cs4.RData"))
 load(paste0(path_results, "/cons_cs3.RData"))
-load(paste0(path_results, "/rescale_india.RData"))
 load(paste0(path_results, "/lfp_cs4.RData"))
 load(paste0(path_results, "/paidwage_cs4.RData"))
 load(paste0(path_results, "/wage_cs4.RData"))
@@ -24,25 +23,17 @@ load(paste0(path_results, "/wage_cs4.RData"))
 educ_cons <- rbind(
   rbind(
     educ_cs4 %>% select(country, year, gini_u, gini_l, gini_p) %>% mutate(outcome = 1, measure = 0),
-    cons_cs3 %>% select(country, year, gini_u, gini_l, gini_p) %>%
-      mutate(gini_p = ifelse(country == "India"&year >= 5, gini_p*rescale_india$rescale_gini_last, gini_p),
-            gini_l = ifelse(country == "India"&year >= 5, gini_l*rescale_india$rescale_gini_last, gini_l),
-            gini_u = ifelse(country == "India"&year >= 5, gini_u*rescale_india$rescale_gini_last, gini_u)) %>%
-      mutate(outcome = 2, measure = 0)) %>% rename_with(~str_replace(., "gini", "value"), contains("gini")
+    cons_cs3 %>% select(country, year, gini_u, gini_l, gini_p) %>% mutate(outcome = 2, measure = 0)) %>% 
+      rename_with(~str_replace(., "gini", "value"), contains("gini")
   ),
   rbind(
     educ_cs4 %>% select(country, year, rel_iop_u, rel_iop_l, rel_iop_p) %>% mutate(outcome = 1, measure = 1),
-    cons_cs3 %>% select(country, year, rel_iop_u, rel_iop_l, rel_iop_p) %>%
-      mutate(rel_iop_p = ifelse(country == "India"&year >= 5, rel_iop_p*rescale_india$rescale_rel_iop_last, rel_iop_p),
-             rel_iop_l = ifelse(country == "India"&year >= 5, rel_iop_l*rescale_india$rescale_rel_iop_last, rel_iop_l),
-             rel_iop_u = ifelse(country == "India"&year >= 5, rel_iop_u*rescale_india$rescale_rel_iop_last, rel_iop_u)) %>%
-      mutate(outcome = 2, measure = 1)) %>% rename_with(~str_replace(., "rel_iop", "value"), contains("rel_iop")
+    cons_cs3 %>% select(country, year, rel_iop_u, rel_iop_l, rel_iop_p) %>% mutate(outcome = 2, measure = 1)) %>% 
+      rename_with(~str_replace(., "rel_iop", "value"), contains("rel_iop")
   )) %>%
   mutate(outcome = factor(outcome, labels = c("1" = "Education", "2" = "Consumption"))) %>%
   mutate(measure = factor(measure, labels = c("0" = "Total Inequality", "1" = "Relative IOp"))) %>%
   mutate(line_type = as.factor(case_when(
-    measure == "Total Inequality" & country == "India" & year >= 5 ~ "dotted",
-    measure == "Relative IOp" & country == "India" & year >= 5 ~ "dotdash",
     measure == "Total Inequality" ~ "solid",
     measure == "Relative IOp" ~ "dashed"
   )))
@@ -50,12 +41,8 @@ educ_cons <- rbind(
 ggplot(educ_cons,
        aes(x = year, y = value_p, color = outcome, linetype = measure)) +
   geom_point() +
-  geom_line(data = educ_cons %>% filter(!(country == "India"&year>5&outcome == "Consumption")),
+  geom_line(data = educ_cons,
             aes(x = year, y = value_p, color = outcome, linetype = measure)) +
-  geom_line(data = educ_cons %>% filter(measure == "Total Inequality"&country == "India"&year >= 5&outcome == "Consumption"),
-            aes(x = year, y = value_p, color = outcome), linetype = "dotted") +
-  geom_line(data = educ_cons %>% filter(measure == "Relative IOp"&country == "India"&year >= 5&outcome == "Consumption"),
-            aes(x = year, y = value_p, color = outcome), linetype = "dotdash") +
   geom_text(data = . %>% group_by(country, outcome) %>% filter(year == min(year)),
             aes(label = round(value_p, 2)), vjust = -1, check_overlap = TRUE, size = 3, show.legend = FALSE) +
   geom_text(data = . %>% group_by(country, outcome) %>% filter(year == max(year)),
@@ -85,15 +72,11 @@ change_educ_lfp_cons <- rbind(
   educ_cs4 %>% select(country, year, rel_iop_u, rel_iop_l, rel_iop_p) %>% mutate(outcome = 1),
   lfp_cs4 %>%  select(country, year, abs_iop_u, abs_iop_l, abs_iop_p) %>% mutate(outcome = 3) %>%
     rename_with(~paste0("rel", substr(., 4, nchar(.))), starts_with("abs")),
-  cons_cs3 %>% select(country, year, rel_iop_u, rel_iop_l, rel_iop_p) %>%
-    mutate(rel_iop_p = ifelse(country == "India"&year >= 5, rel_iop_p*rescale_india$rescale_rel_iop_last, rel_iop_p),
-           rel_iop_l = ifelse(country == "India"&year >= 5, rel_iop_l*rescale_india$rescale_rel_iop_last, rel_iop_l),
-           rel_iop_u = ifelse(country == "India"&year >= 5, rel_iop_u*rescale_india$rescale_rel_iop_last, rel_iop_u)) %>%
-    mutate(outcome = 2)
+  cons_cs3 %>% select(country, year, rel_iop_u, rel_iop_l, rel_iop_p) %>% mutate(outcome = 2)
   ) %>%
   mutate(outcome = factor(outcome, labels = c("1" = "Education", "2" = "Consumption", "3" = "LFP"))) %>%
-  mutate(type_new = as.factor(ifelse((outcome == "Consumption"&country == "India"&year >= 5|outcome == "LFP"&country == "India"&year >= 6), 1, 0))) %>%
-  mutate(type_std = as.factor(ifelse(!(outcome == "Consumption"&country == "India"&year>5|outcome == "LFP"&country == "India"&year>6), 1, 0))) %>%
+  mutate(type_new = as.factor(ifelse((outcome == "LFP"&country == "India"&year >= 6), 1, 0))) %>%
+  mutate(type_std = as.factor(ifelse(!(outcome == "LFP"&country == "India"&year>6), 1, 0))) %>%
   group_by(country) %>%
   mutate(max_min_year = max(aggregate(year ~ outcome, data = pick(everything()), FUN = min)$year)) %>% # Calculate highest min year
   ungroup() %>% group_by(country, outcome) %>%

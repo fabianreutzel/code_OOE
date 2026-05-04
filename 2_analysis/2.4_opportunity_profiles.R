@@ -198,7 +198,7 @@ if (out[o] != "educ" & out[o] != "prim"){
             legend.text = element_text(size = 11),
             panel.background = element_blank())
     if(out[o] == "educ"){
-      ggsave(paste0(path_figures, "/main/prof_", out[o], ".png"), width = 8, height = 6)
+      ggsave(paste0(path_figures, "/annex/prof_", out[o], ".png"), width = 8, height = 6)
     } else {
       ggsave(paste0(path_figures, "/annex/prof_", out[o], ".png"), width = 8, height = 6)
     }
@@ -218,7 +218,7 @@ if (out[o] != "educ" & out[o] != "prim"){
             legend.title = element_blank(),
             legend.text = element_text(size = 11),
             panel.background = element_blank())
-    ggsave(paste0(path_figures, "/main/change_5090s_", out[o], ".png"), width = 8, height = 6)
+    ggsave(paste0(path_figures, "/annex/change_5090s_", out[o], ".png"), width = 8, height = 6)
   }
   if(out[o] == "cons"){
     ggplot(prof_change,
@@ -234,7 +234,7 @@ if (out[o] != "educ" & out[o] != "prim"){
             legend.title = element_blank(),
             legend.text = element_text(size = 11),
             panel.background = element_blank())
-    ggsave(paste0(path_figures, "/main/growth_5080s_", out[o], ".png"), width = 8, height = 6)
+    ggsave(paste0(path_figures, "/annex/growth_5080s_", out[o], ".png"), width = 8, height = 6)
   }
   ##2.3 CDFs####
   profiles_n <- prof_01_adj %>%

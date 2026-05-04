@@ -6,13 +6,13 @@
 rm(list = ls())
 
 #DEFINE ROOT DIRECTORY
-setwd ("XXX")
+setwd ("C:/Users/fabia/OneDrive - Université Paris 1 Panthéon-Sorbonne/World Bank")
 
 #define file paths
 path_figures = paste0(getwd(), "/outputs/figures")
 path_tables = paste0(getwd(), "/outputs/tables")
 path_results = paste0(getwd(), "/outputs/files")
-path_code = paste0(getwd(), "/code")
+path_code = paste0(getwd(), "/code_iop_south_asia")
 path_data = paste0(getwd(), "/data")
 
 #create output directories
@@ -63,7 +63,7 @@ source(paste0(path_code, "/2_analysis/2.1_IOp_cross-section_intro.R"))
 #########################################################################################/
 # 2. Cohort results ####
 #########################################################################################/
-outcome_dim = "labor" #options: "all", "educ", "coresident", "cons", "labor"
+outcome_dim = "all" #options: "all", "educ", "coresident", "cons", "labor"
 outcome_type = "cohort" #options: "cs", "cohort"
 boot_n = 2 #number of bootstrap replications (not used in paper for brevity)
 estimation = "para" #options: "para", "forest" => only "para" used in main part of paper
@@ -94,6 +94,7 @@ if(robustness_checks == TRUE){
   if(outcome_dim == "all" | outcome_dim == "educ"){source(paste0(path_code, "/2_analysis/robustness_checks/robustness_education.R"))}
   if(outcome_dim == "all" | outcome_dim == "coresident"){source(paste0(path_code, "/2_analysis/robustness_checks/robustness_coresident.R"))}
   if(outcome_dim == "all" | outcome_dim == "labor"){source(paste0(path_code, "/2_analysis/robustness_checks/robustness_labor.R"))}
+  if(outcome_dim == "all" | outcome_dim == "labor"){source(paste0(path_code, "/2_analysis/robustness_checks/robustness_india.R"))}
   if(outcome_dim == "all"){source(paste0(path_code, "/2_analysis/robustness_checks/robustness_migration.R"))}
 }
 

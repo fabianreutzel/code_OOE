@@ -176,7 +176,7 @@ iop_ex_ante <- function(data, circumstances, outcome, estimation = "para", type,
           FALSE
         })
 
-        if (!ci_valid) {
+        if (!isTRUE(ci_valid)) {
           boot_results <- NULL
         }
       }

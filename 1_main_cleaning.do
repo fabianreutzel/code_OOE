@@ -10,10 +10,10 @@ clear all
 set more off
 
 *DEFINE ROOT DIRECTORY
-gl root "XXX"
+gl root "C:/Users/fabia/OneDrive - Université Paris 1 Panthéon-Sorbonne/World Bank"
 
 *define file paths
-gl code "$root/code"
+gl code "$root/code_iop_south_asia"
 gl interim "$root/data/interim"
 gl raw "$root/data/raw"
 gl clean "$root/data/clean"

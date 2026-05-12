@@ -185,90 +185,7 @@ print(xtable(educ_cons_labor_cs_last), include.rownames = FALSE, include.colname
       floating = FALSE, auto = TRUE, file = paste0(path_tables, "/main/educ_cons_labor_cs_last.tex"))
 
 ##########################################################################################/
-##3. IOp SAR vs World####
-##########################################################################################/
-#country to region mapping WB
-cont_wb <- read.csv(paste0(path_data, "/raw/auxiliary/WB_region_mapping.csv"))
-cont_wb <- cont_wb %>% mutate(sar = ifelse((country == "Afghanistan" | country == "Bangladesh" | country == "Bhutan" | country == "India" | country == "Nepal" | country == "Pakistan" | country == "Sri Lanka"), 1, 0))
-
-#population
-#source: https://data.worldbank.org/indicator/SP.POP.TOTL
-pop <- read.csv(paste0(path_data, "/raw/auxiliary/population.csv"), skip = 3, header = TRUE, stringsAsFactors = FALSE) %>%
-  dplyr::rename(country = Country.Name, code = Country.Code) %>%
-  pivot_longer(cols = starts_with("X"), names_to = "year", values_to = "pop") %>%
-  mutate(year = as.numeric(gsub("X", "", year))) %>%
-  select(country, year, pop)
-
-pop_cont_wb <- inner_join(pop, cont_wb, by = "country")
-
-#HH cons IOp with gender as circ in line with external estimates
-load(paste0(path_results, "/cons_cs_cs3.RData"))
-iop_sar <- cons_cs_cs3 %>%
-  group_by(country) %>% filter(year == max(year))
-
-#GEOM IOp
-iop_geom <- read.csv(paste0(path_data, "/raw/auxiliary/GEOM.csv"), sep = ";")
-iop_geom <- iop_geom %>% group_by(country) %>% filter(year == max(year)) %>%
-  mutate(country = ifelse(country == "South Korea", "Korea, Rep.",
-                    ifelse(country == "Gambia", "Gambia, The",
-                      ifelse(country == "Guinea Bissau", "Guinea-Bissau",
-                        ifelse(country == "Kyrgyzstan", "Kyrgyz Republic",
-                          ifelse(country == "Ivory Coast", "Cote d'Ivoire",
-                            ifelse(country == "Timor Leste", "Timor-Leste",
-                              ifelse(country == "Czech Rep.", "Czech Republic",
-                                ifelse(country == "Slovakia", "Slovak Republic",
-                                  ifelse(country == "USA", "United States", country)))))))))) %>%
-  mutate(measure = substr(year, 5, nchar(year)),
-         year = as.numeric(substr(year, 1, 4)),
-         rel_iop_p = rel_iop / 100,
-         gini_p = gini) %>%
-  select(country, rel_iop_p, gini_p, year)
-
-iop_world_geom <- rbind(
-  iop_sar %>%
-    mutate(year = ifelse(year == 2022, 2021, year)) %>%
-    select(country, rel_iop_p, gini_p, year) %>%
-    left_join(pop_cont_wb, by = c("country", "year")),
-  iop_geom %>% left_join(pop_cont_wb, by = c("country", "year"))) %>%
-  mutate(cont_wb_code = ifelse(code == "USA", "NA", cont_wb_code))
-
-##region averages
-#simple average
-region_agg_geom <- iop_world_geom %>% group_by(cont_wb_code) %>%
-  summarise(geom_iop = mean(rel_iop_p), geom_gini = mean(gini_p))
-#population-weighted
-region_agg_geom_pop <- iop_world_geom %>% group_by(cont_wb_code) %>%
-  mutate(pop_share = pop / sum(pop)) %>%
-  summarise(geom_iop = weighted.mean(rel_iop_p, pop_share), geom_gini = weighted.mean(gini_p, pop_share))
-
-#set color scheme
-cont_color <- c("EAP" = "#F8766D", "ECA" = "#C49A00", "LAC" = "#53B400",
-                "NA" = "#00C094", "MENA" = "#00B6EB", "SSA" = "#A58AFF", "SAR" = "#FB61D7")
-
-#Great Gatsby - GEOM
-ggplot(iop_world_geom %>% mutate(sar = ifelse(country %in% c("India", "Nepal") & year<2021, 0, sar)), aes(x = gini_p, y = rel_iop_p)) +
-  geom_point(aes(color = cont_wb_code)) +
-  geom_smooth(method = "lm", se = FALSE, color = "black", aes(weight = pop)) +
-  geom_text(aes(label = code, alpha = as.factor(sar)), vjust = 1, hjust = c("middle")) +
-  scale_alpha_manual(values = c("0" = 0.3, "1" = 1), guide = 'none') +
-  scale_color_manual("",
-         values = cont_color,
-         labels = c("LAC" = "Latin America & Caribbean (LAC)", "SAR" = "South Asia (SAR)",
-            "SSA" = "Sub-Saharan Africa (SSA)", "ECA" = "Europe & Central Asia (ECA)",
-            "MENA" = "Middle East & North Africa (MENA)", "EAP" = "East Asia & Pacific (EAP)",
-            "NA" = "North America (NA)")) +
-  labs(x = "Total Inequality (Gini)", y = "Relative IOp") +
-  theme(axis.line = element_line(color = "black"),
-    legend.position = "bottom",
-    legend.title = element_blank(),
-    legend.text = element_text(size = 9),
-    legend.key = element_rect(fill = NA, colour = NA),
-    panel.background = element_blank()) +
-  guides(color = guide_legend(nrow = 2))
-ggsave(paste0(path_figures, "/main/gini_iop_world.png"), width = 8, height = 6)
-
-##########################################################################################/
-##5.1 Intro: Regional Ginis (PIP data)####
+##3.1 Intro: Regional Ginis (PIP data)####
 #re: not displayed in the paper, but cited in section 1
 ##########################################################################################/
 pip <- read.csv(paste0(path_data, "/raw/auxiliary/pip_20250930_2017_01_02_PROD.csv"))
@@ -282,8 +199,9 @@ print(xtable(pip_2020), include.rownames = FALSE, include.colnames = TRUE,
       floating = FALSE, auto = TRUE, file = paste0(path_tables, "/annex/gini_regions.tex"))
 
 ##########################################################################################/
-##5.2 Appendix: Cross-section Gini comparison (PIP data)####
+##3.2 Appendix: Cross-section Gini comparison (PIP data)####
 ##########################################################################################/
+load(paste0(path_results, "/cons_cs_cs3.RData"))
 pip_old <- read.csv(paste0(path_data, "/raw/auxiliary/pip_20240627_2017_01_02_PROD.csv"))
 pip_new <- read.csv(paste0(path_data, "/raw/auxiliary/pip_20250930_2017_01_02_PROD.csv"))
 pip <- rbind(pip_old %>% filter(country_name == "India"&reporting_year<2012), # keep old India estimates up to 2011 for methodological consistency
